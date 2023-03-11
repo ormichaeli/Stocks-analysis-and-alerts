@@ -4,7 +4,7 @@ from utils import stocks_list
 from pymongo import MongoClient
 #pymongo - version 4.1.1
 
-with open('/tmp/pycharm_project_260/config.json') as f:
+with open('/tmp/pycharm_project_980/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 

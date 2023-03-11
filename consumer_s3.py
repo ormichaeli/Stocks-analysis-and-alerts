@@ -5,7 +5,7 @@ from pyspark.sql.types import StringType, StructType
 import json
 
 
-with open('/tmp/pycharm_project_139/config.json') as f:
+with open('/tmp/pycharm_project_980/config.json') as f:
     config = json.load(f)
     access_key = config['Access_key_ID']
     secret_key = config['Secret_access_key']
@@ -54,8 +54,8 @@ stream_to_s3 = df_realtime_prices \
     .writeStream \
     .format("json") \
     .partitionBy('stock_ticker') \
-    .option("path", "s3a://realtime-stocks-prices-deproj/output/") \
-    .option("checkpointLocation", "s3a://realtime-stocks-prices-deproj/checkpoint/") \
+    .option("path", "s3a://realtime-stocks-prices-deproj/") \
+    .option("checkpointLocation", "checkpoint_s3") \
     .start() \
     .awaitTermination()
 
