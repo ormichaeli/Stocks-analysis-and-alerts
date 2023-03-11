@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from time import sleep
 
 
-with open('/tmp/pycharm_project_980/config.json') as f:
+with open('/tmp/pycharm_project_296/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 
@@ -57,7 +57,7 @@ for stock in stocks_list:
 	if last_doc[0]["current_price"] != current_price:
 		dict_current_price = {'stock_ticker': stock, 'current_price': current_price, 'time': str(datetime.now(pytz.timezone('US/Eastern')))}
 
-		#send to email process only if there are users requests or active one
+		# send to email process only if there are users requests or active one
 		if len(users_list) > 0 and is_there_at_least_one_active:
 			producer.send(topic='stocks_prices_kafka', value=dict_current_price)
 			producer.flush()

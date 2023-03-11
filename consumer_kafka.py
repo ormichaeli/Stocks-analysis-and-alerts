@@ -70,7 +70,7 @@ stream_to_kafka = df_users_to_send_emails \
     .format('kafka') \
     .option("kafka.bootstrap.servers", bootstrapServers) \
     .option("topic", topic4) \
-    .option("checkpointLocation", 'checkpointLocation_kafka3') \
+    .option("checkpointLocation", 'checkpointLocation_kafka1') \
     .start()
 
 stream_to_kafka.awaitTermination()
