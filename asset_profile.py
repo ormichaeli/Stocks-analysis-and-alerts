@@ -1,6 +1,5 @@
 import requests
 import json
-from utils import stocks_list
 from pymongo import MongoClient
 #pymongo - version 4.1.1
 
@@ -16,10 +15,11 @@ mongo_db = client['stocks_db']
 
 #create 'static_data' collection
 mongo_collection = mongo_db['static_data']
-
 cur = mongo_collection.find()
-
 results = list(cur)
+
+tickers_col = mongo_db['tickers']
+stocks_list = tickers_col.distinct("ticker")
 
 # Checking the cursor is empty--
 if len(results) == 0:
