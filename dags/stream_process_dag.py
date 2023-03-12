@@ -8,6 +8,7 @@ from airflow.operators.sensors import TimeSensor
 # retry_delay: tell the DAG to wait 1 minute before retrying
 dag = DAG(
     dag_id="streaming_process",
+    start_date= datetime(2023, 3, 12),
     schedule_interval='0 9 * * 1-5',      # At 09:00 AM, Monday through Friday
     catchup=False,                        # Defines whether the DAG reruns all DAG runs that were scheduled before today's date.
     tags= ["tutorial"],
