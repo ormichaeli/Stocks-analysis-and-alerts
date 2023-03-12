@@ -58,4 +58,3 @@ stream_to_s3 = df_realtime_prices \
     .option("checkpointLocation", "s3a://checkpoint-s3/") \
     .start() \
     .awaitTermination()
-
