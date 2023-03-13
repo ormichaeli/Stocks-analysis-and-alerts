@@ -111,10 +111,10 @@ wait_until_16 = TimeSensor(
 # trigger_producer >> run_producer >> \
 # trigger_wait_operator >> wait_until_16 >> stop_operator
 
-run_stream_send_emails
-run_consumer_kafka
-run_consumer_s3
-run_consumer_mongo
-run_producer
-wait_until_16
 stop_operator
+wait_until_16
+run_producer
+run_consumer_mongo
+run_consumer_s3
+run_consumer_kafka
+run_stream_send_emails
