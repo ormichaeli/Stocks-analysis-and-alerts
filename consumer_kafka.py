@@ -12,7 +12,7 @@ topic4 = "users_emails"
 
 spark = SparkSession \
     .builder \
-    .appName("real_time_prices_kafka") \
+    .appName("realtime_prices_kafka") \
     .config("spark.mongodb.input.uri", "mongodb://localhost:27017/stocks_db.users") \
     .config("spark.mongodb.output.uri", "mongodb://localhost:27017/stocks_db.realtime_data") \
     .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.11:2.4.3,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.3') \

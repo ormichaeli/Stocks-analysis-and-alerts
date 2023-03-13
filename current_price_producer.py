@@ -9,7 +9,7 @@ with open('/tmp/pycharm_project_172/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 
-topics = ['stocks_prices_to_mongo', 'stocks_prices_to_s3']
+topics = ['stocks_prices_to_mongo', 'stocks_prices_to_hdfs']
 brokers = ['cnt7-naya-cdh63:9092']
 
 producer = KafkaProducer(
