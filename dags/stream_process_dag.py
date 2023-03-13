@@ -114,4 +114,7 @@ wait_until_16 = TimeSensor(
 run_stream_send_emails
 run_consumer_kafka
 run_consumer_s3
-ru
+run_consumer_mongo
+run_producer
+wait_until_16
+stop_operator
