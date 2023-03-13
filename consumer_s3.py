@@ -5,7 +5,7 @@ from pyspark.sql.types import StringType, StructType
 import json
 
 
-with open('/tmp/pycharm_project_296/config.json') as f:
+with open('/tmp/pycharm_project_172/config.json') as f:
     config = json.load(f)
     access_key = config['Access_key_ID']
     secret_key = config['Secret_access_key']

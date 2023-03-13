@@ -3,13 +3,14 @@ from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, time, timedelta
 from airflow.operators.python_operator import ShortCircuitOperator
 from airflow.operators.sensors import TimeSensor
+import pytz
 
 # retries: give the dag a maximum of two retries in case of failure
 # retry_delay: tell the DAG to wait 1 minute before retrying
 dag = DAG(
     dag_id="streaming_process",
     start_date= datetime(2023, 3, 12),
-    schedule_interval='0 9 * * 1-5',      # At 09:00 AM, Monday through Friday
+    schedule_interval='58 8 * * 1-5',      # At 08:58 AM, Monday through Friday
     catchup=False,                        # Defines whether the DAG reruns all DAG runs that were scheduled before today's date.
     tags= ["tutorial"],
     default_args={
@@ -58,11 +59,11 @@ run_stream_send_emails = BashOperator(
 run_stream_send_emails >> run_consumer_kafka
 
 def stop_dag():
-    now = datetime.now()
+    now_new_york = datetime.now(pytz.timezone('US/Eastern'))
     stop_time = time(hour=16)
-    return now.time() >= stop_time
+    return now_new_york.time() >= stop_time
 
-stop_operator = ShortCircuitOperator(
+stop_operator = ShortCircuitOperator(           # Allows a pipeline to continue based on the result of a python_callable.
     task_id='stop_dag',
     python_callable=stop_dag,
     dag=dag,
