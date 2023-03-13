@@ -10,14 +10,15 @@ import pytz
 # retry_delay: tell the DAG to wait 1 minute before retrying
 dag = DAG(
     dag_id="streaming_process",
-    start_date= datetime(2023, 3, 12),
+    start_date= datetime(2023, 3, 13),
     schedule_interval='58 8 * * 1-5',      # At 08:58 AM, Monday through Friday
     catchup=False,                        # Defines whether the DAG reruns all DAG runs that were scheduled before today's date.
     tags= ["tutorial"],
+    depends_on_past = False,               # Task wont run if its previous task failed = False.
     default_args={
         "owner": 'airflow',
         "retries": 3,
-        "retry_delay": timedelta(minutes=1)
+        "retry_delay": timedelta(minutes=0.5)
     }
 )
 
@@ -111,8 +112,7 @@ wait_until_16 = TimeSensor(
 # trigger_producer >> run_producer >> \
 # trigger_wait_operator >> wait_until_16 >> stop_operator
 
-stop_operator
-wait_until_16
+wait_until_16 >> stop_operator
 run_producer
 run_consumer_mongo
 run_consumer_s3
