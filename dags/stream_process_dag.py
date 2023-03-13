@@ -23,31 +23,31 @@ dag = DAG(
 
 run_producer = BashOperator(
     task_id='run_producer',
-    bash_command='python /tmp/pycharm_project_35/current_price_producer.py',
+    bash_command='python /tmp/pycharm_project_172/current_price_producer.py',
     dag=dag,
 )
 
 run_consumer_s3 = BashOperator(
     task_id='run_consumer_s3',
-    bash_command='python /tmp/pycharm_project_35/consumer_hdfs.py',
+    bash_command='python /tmp/pycharm_project_172/consumer_hdfs.py',
     dag=dag,
 )
 
 run_consumer_mongo = BashOperator(
     task_id='run_consumer_mongo',
-    bash_command='python /tmp/pycharm_project_35/consumer_mongo.py',
+    bash_command='python /tmp/pycharm_project_172/consumer_mongo.py',
     dag=dag,
 )
 
 run_consumer_kafka = BashOperator(
     task_id='run_send_to_kafka_again',
-    bash_command='python /tmp/pycharm_project_35/consumer_kafka.py',
+    bash_command='python /tmp/pycharm_project_172/consumer_kafka.py',
     dag=dag,
 )
 
 run_stream_send_emails = BashOperator(
     task_id='run_emails_consumer',
-    bash_command='python /tmp/pycharm_project_35/stream_send_emails.py',
+    bash_command='python /tmp/pycharm_project_172/stream_send_emails.py',
     dag=dag,
 )
 
