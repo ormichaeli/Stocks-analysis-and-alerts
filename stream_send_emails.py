@@ -12,7 +12,7 @@ bootstrapServers = "cnt7-naya-cdh63:9092"
 topic4 = 'users_emails'
 
 #for sending emails
-with open('/tmp/pycharm_project_172/config.json') as f:
+with open('/tmp/pycharm_project_973/config.json') as f:
     config = json.load(f)
     smtp_server = config['email']['smtp_server']
     smtp_port = config['email']['smtp_port']

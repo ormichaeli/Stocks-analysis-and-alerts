@@ -1,8 +1,7 @@
 from airflow.models import DAG
 from airflow.operators.bash_operator import BashOperator
-from airflow.operators.dagrun_operator import TriggerDagRunOperator
 from datetime import datetime, time, timedelta
-from airflow.operators.python_operator import ShortCircuitOperator
+from airflow.operators.python_operator import ShortCircuitOperator, PythonOperator
 from airflow.operators.sensors import TimeSensor
 import pytz
 
@@ -22,65 +21,77 @@ dag = DAG(
     }
 )
 
-run_producer = BashOperator(
+def run_producer_file():
+    import requests, json, pytz
+    from datetime import datetime
+    from kafka import KafkaProducer
+    from pymongo import MongoClient
+    from time import sleep
+
+    exec(open("/tmp/pycharm_project_172/current_price_producer.py").read())
+
+run_producer = PythonOperator(
     task_id='run_producer',
-    bash_command='python /tmp/pycharm_project_172/current_price_producer.py',
+    python_callable = run_producer_file,
     dag=dag,
 )
 
-run_consumer_s3 = BashOperator(
-    task_id='run_consumer_s3',
-    bash_command='python /tmp/pycharm_project_172/consumer_hdfs.py',
-    dag=dag,
-)
+def run_consumer_kafka_file():
+    from pyspark.sql import SparkSession
+    from pyspark.sql.functions import *
+    from pyspark.sql.types import StringType, StructType, FloatType, IntegerType
 
-run_consumer_mongo = BashOperator(
-    task_id='run_consumer_mongo',
-    bash_command='python /tmp/pycharm_project_172/consumer_mongo.py',
-    dag=dag,
-)
+    exec(open("/tmp/pycharm_project_172/consumer_kafka.py").read())
 
-run_consumer_kafka = BashOperator(
+run_consumer_kafka = PythonOperator(
     task_id='run_send_to_kafka_again',
-    bash_command='python /tmp/pycharm_project_172/consumer_kafka.py',
+    python_callable= run_consumer_kafka_file,
     dag=dag,
 )
 
-run_stream_send_emails = BashOperator(
+def run_consumer_hdfs_file():
+    from pyspark.sql import SparkSession
+    from pyspark.sql.functions import *
+    from pyspark.sql.types import StringType, StructType
+
+    exec(open("/tmp/pycharm_project_172/consumer_hdfs.py").read())
+
+
+run_consumer_hdfs = PythonOperator(
+    task_id='run_consumer_hdfs',
+    python_callable= run_consumer_hdfs_file,
+    dag=dag,
+)
+
+def run_consumer_mongo_file():
+    from pyspark.sql import SparkSession
+    from pyspark.sql.functions import *
+    from pyspark.sql.types import StringType, StructType
+
+    exec(open("/tmp/pycharm_project_172/consumer_mongo.py").read())
+
+run_consumer_mongo = PythonOperator(
+    task_id='run_consumer_mongo',
+    python_callable= run_consumer_mongo_file,
+    dag=dag,
+)
+
+def run_send_emails_file():
+    from kafka import KafkaConsumer
+    import json
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+    from pymongo import MongoClient
+    from bson.objectid import ObjectId
+
+    exec(open("/tmp/pycharm_project_172/stream_send_emails.py").read())
+
+run_stream_send_emails = PythonOperator(
     task_id='run_emails_consumer',
-    bash_command='python /tmp/pycharm_project_172/stream_send_emails.py',
+    python_callable= run_send_emails_file,
     dag=dag,
 )
-
-# trigger_stream_send_emails = TriggerDagRunOperator(
-#     task_id='trigger_stream_send_emails',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
-#
-# trigger_consumer_kafka = TriggerDagRunOperator(
-#     task_id='trigger_consumer_kafka',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
-#
-# trigger_consumer_s3 = TriggerDagRunOperator(
-#     task_id='trigger_consumer_s3',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
-#
-# trigger_consumer_mongo = TriggerDagRunOperator(
-#     task_id='trigger_consumer_mongo',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
-#
-# trigger_producer = TriggerDagRunOperator(
-#     task_id='trigger_producer',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
 
 def stop_dag():
     now_new_york = datetime.now(pytz.timezone('US/Eastern'))
@@ -98,23 +109,10 @@ wait_until_16 = TimeSensor(
     target_time=time(hour=16),
     dag=dag,
 )
-#
-# trigger_wait_operator = TriggerDagRunOperator(
-#     task_id='trigger_wait_operator',
-#     trigger_dag_id='streaming_process',
-#     dag=dag
-# )
-#
-# trigger_stream_send_emails >> run_stream_send_emails >> \
-# trigger_consumer_kafka >> run_consumer_kafka >> \
-# trigger_consumer_mongo >> run_consumer_mongo >> \
-# trigger_consumer_s3 >> run_consumer_s3 >> \
-# trigger_producer >> run_producer >> \
-# trigger_wait_operator >> wait_until_16 >> stop_operator
 
 wait_until_16 >> stop_operator
 run_producer
 run_consumer_mongo
-run_consumer_s3
+run_consumer_hdfs
 run_consumer_kafka
 run_stream_send_emails

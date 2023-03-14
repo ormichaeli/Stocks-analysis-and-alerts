@@ -3,7 +3,7 @@ import json
 from pymongo import MongoClient
 #pymongo - version 4.1.1
 
-with open('/tmp/pycharm_project_172/config.json') as f:
+with open('/tmp/pycharm_project_973/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 
