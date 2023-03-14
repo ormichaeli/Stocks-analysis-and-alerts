@@ -1,5 +1,4 @@
 from airflow.models import DAG
-from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, time, timedelta
 from airflow.operators.python_operator import ShortCircuitOperator, PythonOperator
 from airflow.operators.sensors import TimeSensor
