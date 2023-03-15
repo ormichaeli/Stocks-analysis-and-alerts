@@ -50,10 +50,9 @@ stream_to_mongo = df_realtime_prices \
     .writeStream \
     .outputMode("append") \
     .foreachBatch(write_df_to_mongo) \
-    .option("checkpointLocation", "checkpoint_mongo1") \
+    .option("checkpointLocation", "/user/naya/checkpoint_mongo1") \
     .start()
 
-#checkpoint location is in hdfs files /user/naya/checkpoint_mongo1
 
 stream_to_mongo.awaitTermination()
 
