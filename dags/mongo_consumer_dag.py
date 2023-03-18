@@ -1,10 +1,7 @@
 from airflow.models import DAG
 from datetime import datetime, time, timedelta
-from airflow.operators.python_operator import PythonOperator
-import pytz
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.dummy_operator import DummyOperator
-
 
 dir = '/tmp/pycharm_project_612'
 
@@ -20,20 +17,15 @@ dag = DAG(
     tags=['stocks_analysis_and_alerts_final_project']
 )
 
-# def stop_dag_if_after_16pm():
-#     now_new_york = datetime.now(pytz.timezone('US/Eastern'))
-#     if now_new_york.hour >= 16:
-#         raise ValueError('DAG stop running after 16:00')
-#
-# stop_operator = PythonOperator(
-#     task_id='stop_dag',
-#     python_callable= lambda: print("stop_task"),
-#     on_failure_callback= stop_dag_if_after_16pm,
-#     dag=dag,
-# )
+run_consumer_mongo = BashOperator(
+    task_id='run_consumer_mongo',
+    bash_command= f"python {dir}/consumer_mongo.py",
+    dag=dag,
+)
 
-# dummy_task >> run_stream_send_emails
-# dummy_task >> stop_operator
+dummy_task = DummyOperator(task_id='dummy_task', dag=dag)
+
+dummy_task >> run_consumer_mongo
 
 if __name__ == "__main__":
     dag.cli()
