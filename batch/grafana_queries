@@ -1,0 +1,47 @@
+-- 50-Day Simple Moving Average --
+SELECT ds.ticker, ds.business_day, sma.sma
+FROM daily_stocks ds
+INNER JOIN (
+    SELECT business_day, ticker, AVG(close_price) AS sma
+    FROM (
+        SELECT business_day, ticker, close_price
+        FROM daily_stocks
+        ORDER BY ticker, business_day DESC
+    ) AS sorted_stocks
+    WHERE business_day >= DATE_SUB(CURDATE(), INTERVAL 50 DAY)
+    GROUP BY business_day, ticker
+) AS sma
+ON ds.business_day = sma.business_day AND ds.ticker = sma.ticker
+ORDER BY ds.ticker, ds.business_day;
+
+-- 200-Day Average --
+SELECT ticker, AVG(close_price) AS sma
+FROM (
+    SELECT ticker, close_price
+    FROM daily_stocks
+    WHERE business_day >= DATE_SUB(CURDATE(), INTERVAL 200 DAY)
+) AS recent_stocks
+GROUP BY ticker;
+
+-- Last Month Trades Executed Number --
+SELECT ticker, SUM(transactions_number) AS transactions_number
+FROM daily_stocks
+WHERE business_day >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+GROUP BY ticker
+ORDER BY ticker
+
+-- Last Year Open And Close Prices Average --
+SELECT ticker, AVG(open_price) AS avg_open_price, AVG(close_price) AS avg_close_price
+FROM (
+    SELECT ticker, open_price, close_price
+    FROM daily_stocks
+    WHERE business_day >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+) AS recent_stocks
+GROUP BY ticker;
+
+-- Average Daily Volume Over The Last 30 Days --
+SELECT ticker, AVG(volume) AS average_daily_volume
+FROM daily_stocks
+WHERE business_day BETWEEN DATE_SUB(CURDATE(), INTERVAL 30 DAY) AND CURDATE()
+GROUP BY ticker
+ORDER BY ticker;

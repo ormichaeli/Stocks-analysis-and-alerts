@@ -1,16 +1,16 @@
-from pymongo import MongoClient
-import pandas as pd
+# This is a sample Python script.
 
-client = MongoClient('mongodb://localhost:27017')
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-# create db if not exists
-mongo_db = client['stocks_db']
 
-# create 'static_data' collection
-mongo_collection = mongo_db['static_data']
+def print_hi(name):
+    # Use a breakpoint in the code line below to debug your script.
+    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-def get_relevant_users(stock_ticker):
-    cur = mongo_collection.find()
-    df = pd.DataFrame(list(cur))
-    df_relevant_users = df[(df.is_active == 1) & (df.stock_ticker == stock_ticker)]
-    return df_relevant_users
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    print_hi('PyCharm')
+
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/

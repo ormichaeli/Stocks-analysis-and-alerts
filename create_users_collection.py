@@ -41,15 +41,15 @@ users_data = [{'first_name': 'miryam',
              {'first_name': 'zeava',
               'last_name': 'micli',
               'email_address': 'ormichaeli207@gmail.com',
-              'stock_ticker': 'AAPL',
+              'stock_ticker': 'TSLA',
                'price': 155,
-               'is_active': 0},
+               'is_active': 1},
 
              {'first_name': 'eden',
               'last_name': 'galam',
               'email_address': 'ormichaeli207@gmail.com',
-              'stock_ticker': 'SBUX',
-               'price': 100,
+              'stock_ticker': 'AAPL',
+               'price': 155,
                'is_active': 1}
             ]
 

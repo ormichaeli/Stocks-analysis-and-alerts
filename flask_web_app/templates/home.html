@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="/static/home_style.scss" type="text/scss">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trending Stocks Today - Naya Trades</title>
+    <link rel="stylesheet" href="/static/home_style.scss?t={{ timestamp }}" type="text/css">
+    <style>
+        .stock-data-container {
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!-- Container for the stock data table -->
+<div class="stock-data-container">
+    <h1>Trending Tickers</h1>
+    <!-- Button to register for alerts -->
+    <a href="/register" class="btn btn-primary">Register For Alerts</a>
+    <table id="stock-data-table">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Last Price</th>
+            <th>% Change</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for price in prices %}
+        <tr data-ticker="{{ price['_id'] }}" data-price="{{ price['current_price'] }}"
+            data-change="{{ price['price_change'] }}">
+            <td>{{ price['_id'] }}</td>
+            <td class="current-price">{{ '{:.2f}'.format(price['current_price']) }}</td>
+            <td class="price-change" style="color: {{ 'green' if price['price_change'] >= 0 else 'red' }};">{{
+                price['price_change'] }}%
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        // Fetch stock data every 5 seconds and update the table
+        setInterval(() => {
+            const table = document.getElementById("stock-data-table");
+            const rows = table.getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) {
+                const ticker = rows[i].getAttribute("data-ticker");
+                if (ticker) {
+                    fetch(`/api/stocks/${ticker}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const currentPriceElem = rows[i].getElementsByClassName("current-price")[0];
+                            const priceChangeElem = rows[i].getElementsByClassName("price-change")[0];
+                            currentPriceElem.innerHTML = data.current_price.toFixed(2);
+                            priceChangeElem.innerHTML = `${data.price_change.toFixed(2)}%`;
+                            priceChangeElem.style.color = data.price_change >= 0 ? "green" : "red";
+                        })
+                        .catch(error => console.log(error));
+                }
+            }
+        }, 5000);
+    </script>
+
+</div>
+</body>
+</html>
