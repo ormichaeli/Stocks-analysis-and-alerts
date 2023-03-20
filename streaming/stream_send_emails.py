@@ -1,29 +1,18 @@
 from kafka import KafkaConsumer
 import json
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import utilities
 
 
 #for the consumer
 bootstrapServers = "cnt7-naya-cdh63:9092"
 topic4 = 'users_emails'
 
-#for sending emails
-with open('/tmp/pycharm_project_612/config.json') as f:
-    config = json.load(f)
-    smtp_server = config['email']['smtp_server']
-    smtp_port = config['email']['smtp_port']
-    sender = config['email']['sender']
-    password = config['email']['password']
-
 #to update is_active
 client = MongoClient('mongodb://localhost:27017')
 mongo_db = client['stocks_db']
 mongo_collection = mongo_db['users']
-
 
 consumer = KafkaConsumer(topic4,bootstrap_servers=bootstrapServers)
 
@@ -38,23 +27,14 @@ for message in consumer:
 
         mongo_collection.update_one({"_id": ObjectId(request_id)},{"$set":{"is_active": 0}})
 
-        msg = MIMEMultipart()
-        msg['From'] = 'Naya Trades'
-        msg['To'] = recipient
-        msg['Subject'] = f'{stock_ticker} got to the price you wanted!'
-        body = f'Hi {name},\n\n\n \
-                Further to your request, we inform you that the {stock_ticker} stock has reached a price of {wanted_price:.2f} dollars.\n \
-                To submit another request, you are welcome to enter the form again, and we will be happy to track the stocks for you :)'
-
-        msg.attach(MIMEText(body, 'plain'))
-
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(sender, password)
-
-        # Send the email
-        text = msg.as_string()
-        server.sendmail(msg['From'], msg['To'], text)
-
-        # Close the connection to the SMTP server
-        server.quit()
+        subject = f'{stock_ticker} got to the price you wanted!'
+        body = f'<html><body><p style="margin-bottom: 10px;"><strong>Hi {name},</strong></p>' \
+               f'<p style="margin-top: 0px;">Further to your request,<br>' \
+               f'<style="margin-top: 0px; margin-bottom: 10px;">we inform you that the <strong>{stock_ticker}</strong> stock has reached a price of <strong>{wanted_price:.2f}</strong>$</p>' \
+               f'<p>To submit another request you are welcome to <a href="http://127.0.0.1:5000">enter our site again</a>, and we will be happy to track the stocks for you :)</p>' \
+               f'<p style="margin-top: 10px; margin-bottom: 0px;">Best regards,</p>' \
+               f'<p style="margin-top: 0px;">Naya Trades Team</p></body></html>'
+        # Message for log
+        message = f'Alert about {stock_ticker} was sent to {recipient}'
+        # Call to send_email function
+        utilities.send_email(recipient, subject, body, message)

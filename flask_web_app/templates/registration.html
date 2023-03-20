@@ -34,7 +34,9 @@
                     <select name="stock_ticker" id="stock_ticker" required>
                         <option value="">Select</option>
                         {% for ticker in tickers %}
-                        <option value="{{ ticker.split(' ')[0] }}">{{ ticker }}</option>
+                        {% set ticker_value = ticker.split("(")[1].split(")")[0] %}
+                        <option value="{{ ticker_value }}">{{ ticker.split("(")[0].strip() }} ({{ ticker_value }})
+                        </option>
                         {% endfor %}
                     </select>
                 </div>

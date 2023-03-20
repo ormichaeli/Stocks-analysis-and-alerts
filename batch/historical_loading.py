@@ -27,7 +27,7 @@ cursor = db.cursor()
 
 # Get ticker names
 ticker_names = tickers_col.distinct("ticker")
-_from = '2020-01-01'
-to = '2023-03-08'
+_from = '2023-01-01'
+to = '2023-03-20'
 # Call the function to receive and load polygon data
 data.load_data(db, cursor, polygon_key, ticker_names, _from, to)
