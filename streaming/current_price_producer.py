@@ -54,16 +54,17 @@ while True:
 		last_doc = list(realtime_data_col.find({"stock_ticker": stock}).sort("time",-1).limit(1))
 
 		# continue to stream process only if the current price has changed since the last saved price
-		if last_doc[0]["current_price"] != current_price:
-			dict_current_price = {'stock_ticker': stock, 'current_price': current_price, 'time': str(datetime.now(pytz.timezone('US/Eastern')))}
+		if len(last_doc) > 0:        # if the collection is empty, at start
+			if last_doc[0]["current_price"] != current_price:
+				dict_current_price = {'stock_ticker': stock, 'current_price': current_price, 'time': str(datetime.now(pytz.timezone('US/Eastern')))}
 
-			# send to email process only if there are users requests or active one
-			if len(users_list) > 0 and is_there_at_least_one_active:
-				producer.send(topic='stocks_prices_kafka', value=dict_current_price)
-				producer.flush()
+				# send to email process only if there are users requests or active one
+				if len(users_list) > 0 and is_there_at_least_one_active:
+					producer.send(topic='stocks_prices_kafka', value=dict_current_price)
+					producer.flush()
 
-			for topic in topics:
-				producer.send(topic=topic, value=dict_current_price)
-				producer.flush()
+				for topic in topics:
+					producer.send(topic=topic, value=dict_current_price)
+					producer.flush()
 
 	sleep(1)
