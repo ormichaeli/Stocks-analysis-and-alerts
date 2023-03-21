@@ -4,7 +4,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.operators.dummy_operator import DummyOperator
 
 
-dir = '/tmp/pycharm_project_696'
+dir = '/tmp/pycharm_project_598'
 
 # retries: give the dag a maximum of two retries in case of failure
 # retry_delay: tell the DAG to wait 1 minute before retrying
@@ -20,7 +20,7 @@ dag = DAG(
 
 run_consumer_kafka = BashOperator(
     task_id='run_consumer_kafka',
-    bash_command= f"python {dir}/consumer_kafka.py",
+    bash_command= f"python {dir}/streaming/consumer_kafka.py",
     dag=dag,
 )
 

@@ -4,7 +4,7 @@ from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 
 # Add the path to the project directory to the Python path
-project_dir = '/tmp/pycharm_project_696'
+project_dir = '/tmp/pycharm_project_598'
 
 default_args = {
     'owner': 'Airflow',

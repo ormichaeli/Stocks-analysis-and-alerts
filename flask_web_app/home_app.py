@@ -5,8 +5,10 @@ from pymongo import MongoClient
 from flask import Flask, render_template, request, flash, redirect, url_for
 from logs.logging_config import write_to_log
 
+dir = '/tmp/pycharm_project_598'
+
 # Get configuration data
-with open('/tmp/pycharm_project_696/config.json') as f:
+with open(f'{dir}/config.json') as f:
     config = json.load(f)
 
 # Connect to MongoDB database

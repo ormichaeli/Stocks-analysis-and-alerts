@@ -3,6 +3,7 @@ import logging
 from elasticsearch import Elasticsearch
 from datetime import datetime
 
+
 # Set up Elasticsearch connection
 es = Elasticsearch("http://localhost:9200")
 
@@ -12,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(topic)s - %(message)s')
 
 today = datetime.today().strftime('%Y-%m-%d')
-log_file_name = f'/tmp/pycharm_project_361/logs/{today}.log'
+log_file_name = f'/tmp/pycharm_project_598/logs/{today}.log'
 file_handler = logging.FileHandler(log_file_name)
 file_handler.setFormatter(formatter)
 stream_handler = logging.StreamHandler()

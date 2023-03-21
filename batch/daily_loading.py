@@ -4,8 +4,10 @@ from pymongo import MongoClient
 import batch.get_daily_data as data
 from datetime import datetime, timedelta
 
+dir = '/tmp/pycharm_project_598'
+
 # Get configuration data
-with open('/tmp/pycharm_project_696/config.json') as f:
+with open(f'{dir}/config.json') as f:
     config = json.load(f)
     polygon_key = config['polygon_key']
 

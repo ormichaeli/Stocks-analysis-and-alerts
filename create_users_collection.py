@@ -13,7 +13,7 @@ users_data = [{'first_name': 'miryam',
               'last_name': 'barHen',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
-               'price': 155,
+               'price': 160,
               'news': 'on',
               'is_active': 1},
 
@@ -21,14 +21,14 @@ users_data = [{'first_name': 'miryam',
               'last_name': 'michaeli',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
-               'price': 155,
+               'price': 150,
                'is_active': 1},
 
              {'first_name': 'noam',
               'last_name': 'choen',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'TSLA',
-               'price': 190,
+               'price': 198,
                'is_active': 1},
 
              {'first_name': 'avi',
@@ -43,14 +43,14 @@ users_data = [{'first_name': 'miryam',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'TSLA',
                'price': 155,
-               'is_active': 1},
+               'is_active': 0},
 
              {'first_name': 'eden',
               'last_name': 'galam',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
                'price': 155,
-               'is_active': 1}
+               'is_active': 0}
             ]
 
 mongo_collection.insert_many(users_data)

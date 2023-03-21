@@ -4,13 +4,13 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
 
-PROJECT_DIR = '/tmp/pycharm_project_696'
+PROJECT_DIR = '/tmp/pycharm_project_598'
 
 sys.path.insert(0, PROJECT_DIR)
 
-# def get_articles():
-#     import subprocess
-#     subprocess.run(['python', f'{PROJECT_DIR}/articles/get_articles.py'])
+def get_articles():
+    import subprocess
+    subprocess.run(['python', f'{PROJECT_DIR}/articles/get_articles.py'])
 
 
 def send_articles():

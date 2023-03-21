@@ -4,8 +4,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from logs.logging_config import write_to_log
 
+dir = '/tmp/pycharm_project_598'
+
 # Get configuration data
-with open('/tmp/pycharm_project_696/config.json') as f:
+with open(f'{dir}/config.json') as f:
     config = json.load(f)
 
 

@@ -5,8 +5,10 @@ from logs.logging_config import write_to_log
 from datetime import datetime
 from pymongo import MongoClient
 
+dir = '/tmp/pycharm_project_598'
+
 # Get configuration data
-with open('/tmp/pycharm_project_696/config.json') as f:
+with open(f'{dir}/config.json') as f:
     config = json.load(f)
 polygon_key = config['polygon_key']
 

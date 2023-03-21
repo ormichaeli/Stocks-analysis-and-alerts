@@ -3,7 +3,7 @@ from datetime import datetime, time, timedelta
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.dummy_operator import DummyOperator
 
-dir = '/tmp/pycharm_project_696'
+dir = '/tmp/pycharm_project_598'
 
 # retries: give the dag a maximum of two retries in case of failure
 # retry_delay: tell the DAG to wait 1 minute before retrying
@@ -19,7 +19,7 @@ dag = DAG(
 
 run_stream_send_emails = BashOperator(
     task_id='run_stream_send_emails',
-    bash_command= f"python {dir}/stream_send_emails.py",
+    bash_command= f"python {dir}/streaming/stream_send_emails.py",
     dag=dag,
 )
 
