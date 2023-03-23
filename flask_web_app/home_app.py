@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from flask import Flask, render_template, request, flash, redirect, url_for
 from logs.logging_config import write_to_log
 
-dir = '/tmp/pycharm_project_598'
+dir = '/tmp/pycharm_project_488'
 
 # Get configuration data
 with open(f'{dir}/config.json') as f:

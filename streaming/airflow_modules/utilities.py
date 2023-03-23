@@ -2,7 +2,7 @@ import smtplib
 import json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from logs.logging_config import write_to_log
+from logging_config import write_to_log
 
 dir = '/tmp/pycharm_project_681'
 

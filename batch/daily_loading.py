@@ -4,7 +4,7 @@ from pymongo import MongoClient
 import batch.get_daily_data as data
 from datetime import datetime, timedelta
 
-dir = '/tmp/pycharm_project_598'
+dir = '/tmp/pycharm_project_488'
 
 # Get configuration data
 with open(f'{dir}/config.json') as f:

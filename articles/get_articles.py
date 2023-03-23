@@ -5,7 +5,7 @@ from logs.logging_config import write_to_log
 from datetime import datetime
 from pymongo import MongoClient
 
-dir = '/tmp/pycharm_project_598'
+dir = '/tmp/pycharm_project_488'
 
 # Get configuration data
 with open(f'{dir}/config.json') as f:

@@ -2,8 +2,7 @@ from kafka import KafkaConsumer
 import json
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import utilities
-
+import airflow_modules.utilities
 
 #for the consumer
 bootstrapServers = "cnt7-naya-cdh63:9092"
@@ -37,4 +36,4 @@ for message in consumer:
         # Message for log
         message = f'Alert about {stock_ticker} was sent to {recipient}'
         # Call to send_email function
-        utilities.send_email(recipient, subject, body, message)
+        airflow_modules.utilities.send_email(recipient, subject, body, message)

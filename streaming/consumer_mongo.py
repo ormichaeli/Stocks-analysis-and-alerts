@@ -48,7 +48,6 @@ def write_df_to_mongo(df, epoch_id):
 
 stream_to_mongo = df_realtime_prices \
     .writeStream \
-    .outputMode("append") \
     .foreachBatch(write_df_to_mongo) \
     .option("checkpointLocation", "/user/naya/checkpoint_mongo1") \
     .start()

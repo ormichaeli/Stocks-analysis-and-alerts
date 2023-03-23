@@ -4,7 +4,7 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import StringType, StructType
 import json
 
-with open('/tmp/pycharm_project_67/config.json') as f:
+with open('/tmp/pycharm_project_488/config.json') as f:
     config = json.load(f)
     access_key = config['aws']['Access_key_ID']
     secret_key = config['aws']['Secret_access_key']

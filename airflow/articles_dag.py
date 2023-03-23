@@ -4,7 +4,8 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
 
-PROJECT_DIR = '/tmp/pycharm_project_598'
+PROJECT_DIR = '/tmp/pycharm_project_488'
+
 
 sys.path.insert(0, PROJECT_DIR)
 
