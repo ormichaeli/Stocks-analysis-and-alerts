@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 import json
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import airflow_modules.utilities
+import utilities
 
 #for the consumer
 bootstrapServers = "cnt7-naya-cdh63:9092"
@@ -24,6 +24,7 @@ for message in consumer:
         wanted_price = float(request['price'])
         recipient = request['email_address']
 
+        # update the user request to unactive
         mongo_collection.update_one({"_id": ObjectId(request_id)},{"$set":{"is_active": 0}})
 
         subject = f'{stock_ticker} got to the price you wanted!'
@@ -36,4 +37,4 @@ for message in consumer:
         # Message for log
         message = f'Alert about {stock_ticker} was sent to {recipient}'
         # Call to send_email function
-        airflow_modules.utilities.send_email(recipient, subject, body, message)
+        utilities.send_email(recipient, subject, body, message)

@@ -6,6 +6,10 @@ bootstrapServers = "Cnt7-naya-cdh63:9092"
 # for reading from kafka
 topic2 = "stocks_prices_to_mongo"
 
+## config 1: defining the default collection that we read from
+## config 2: defining the default collection that we write to
+## config 3: defining spark jars packages to contain mongo-spark-connector and spark-kafka-connector
+
 spark = SparkSession \
     .builder \
     .appName("realtime_prices_mongo") \
@@ -14,9 +18,6 @@ spark = SparkSession \
     .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.11:2.4.3,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.3') \
     .getOrCreate()
 
-## config 1: defining the default collection that we read from
-## config 2: defining the default collection that we write to
-## config 3: defining spark jars packages to contain mongo-spark-connector and spark-kafka-connector
 
 # ReadStream from kafka
 df_kafka = spark\
@@ -27,17 +28,18 @@ df_kafka = spark\
     .load()
 
 
-#Create schema to create df from json
+#Create schema to create df from json string
 schema = StructType() \
     .add("stock_ticker", StringType()) \
     .add("current_price", StringType()) \
     .add("time", StringType())
 
+# from_json - Parses a column containing a JSON string into a StructType with the specified schema.
 df_realtime_prices = df_kafka.select(col("value").cast("string"))\
     .select(from_json(col("value"), schema).alias("value"))\
     .select("value.*")
 
-# cast to currect types
+# cast to correct types
 df_realtime_prices = df_realtime_prices.select(col("stock_ticker"),col("current_price").cast("float"), col("time").cast("timestamp"))
 
 def write_df_to_mongo(df, epoch_id):

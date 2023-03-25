@@ -31,14 +31,17 @@ df_realtime_prices = df_kafka.select(col("value").cast("string"))\
     .select(from_json(col("value"), schema).alias("value"))\
     .select("value.*")
 
-# cast to currect types
+# cast to correct types
 df_realtime_prices = df_realtime_prices.select(col("stock_ticker"),col("current_price").cast("float"), col("time").cast("timestamp"))
+# adding a column that contains only the date, for the partition in hdfs
+df_realtime_prices = df_realtime_prices \
+    .withColumn("date", date_format("time", "yyyy-MM-dd"))
 
 stream_to_hdfs = df_realtime_prices \
     .writeStream \
     .format("json") \
-    .partitionBy('stock_ticker') \
-    .option("path", "/user/naya/realtime_prices/") \
-    .option("checkpointLocation", "/user/naya/realtime_prices_checkPoint") \
+    .partitionBy('date', 'stock_ticker') \
+    .option("path", "/user/naya/realtime_prices1/") \
+    .option("checkpointLocation", "/user/naya/realtime_prices_checkPoint1") \
     .start() \
     .awaitTermination()

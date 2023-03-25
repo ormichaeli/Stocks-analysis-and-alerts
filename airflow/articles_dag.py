@@ -3,46 +3,50 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
+# Set project directory path
+project_dir = '/tmp/pycharm_project_301'
+# Add the project directory to system path so modules can be imported
+sys.path.insert(0, project_dir)
 
-PROJECT_DIR = '/tmp/pycharm_project_488'
 
-
-sys.path.insert(0, PROJECT_DIR)
-
-def get_articles():
+# Function to run a Python script using subprocess module
+def run_python_script(script_path):
+    import os
     import subprocess
-    subprocess.run(['python', f'{PROJECT_DIR}/articles/get_articles.py'])
+    os.environ['PYTHONPATH'] = f'{project_dir}:{os.environ.get("PYTHONPATH", "")}'
+    subprocess.run(['python', script_path])
 
 
-def send_articles():
-    exec(compile(open(f'{PROJECT_DIR}/articles/send_articles.py').read(),
-                 f'{PROJECT_DIR}/articles/send_articles.py', 'exec'))
-
-
+# Default DAG arguments
 default_args = {
     'owner': 'Airflow',
     'depends_on_past': False,
     'start_date': datetime(2023, 3, 5, 22, 0)
 }
 
+# Define the DAG
 dag = DAG(
     dag_id='articles_dag',
     default_args=default_args,
-    description='Get and send articles every night at 22:00',
-    schedule_interval='0 22 * * *',
+    description='Get and send articles every day at 20:00',
+    schedule_interval='0 20 * * *',
 )
 
-get_articles = PythonOperator(
+# Define the task to get articles
+get_articles_task = PythonOperator(
     task_id='get_articles',
-    python_callable=get_articles,
+    python_callable=run_python_script,
+    op_kwargs={'script_path': f'{project_dir}/articles/get_articles.py'},
     dag=dag
 )
 
-send_articles = PythonOperator(
+# Define the task to send articles
+send_articles_task = PythonOperator(
     task_id='send_articles',
-    python_callable=send_articles,
+    python_callable=run_python_script,
+    op_kwargs={'script_path': f'{project_dir}/articles/send_articles.py'},
     dag=dag
 )
 
-get_articles >> send_articles
-send_articles
+# Set task dependencies
+get_articles_task >> send_articles_task

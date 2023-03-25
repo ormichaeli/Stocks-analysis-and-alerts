@@ -1,20 +1,18 @@
-import json
-import os
+import logging
+import json, os
 import mysql.connector
 from pymongo import MongoClient
 from flask import Flask, render_template, request, flash, redirect, url_for
 from logs.logging_config import write_to_log
 
-dir = '/tmp/pycharm_project_488'
-
 # Get configuration data
-with open(f'{dir}/config.json') as f:
+with open('/tmp/pycharm_project_301/config.json') as f:
     config = json.load(f)
 
 # Connect to MongoDB database
 client = MongoClient('mongodb://localhost:27017/')
 db = client['stocks_db']
-col = db["realtime_data"]
+realtime = db["realtime_data"]
 users = db["users"]
 tickers = db["tickers"]
 
@@ -33,7 +31,7 @@ app.secret_key = os.environ.get("SECRET_KEY") or "my-secret-key"
 def index():
     try:
         # retrieve stock data from MongoDB
-        stock_data = col.aggregate([
+        stock_data = realtime.aggregate([
             {"$sort": {"stock_ticker": 1, "time": -1}},
             {
                 "$group": {
@@ -68,7 +66,7 @@ def index():
 
     except Exception as e:
         # log error
-        write_to_log('registration form', 'Error occurred while retrieving stock data')
+        write_to_log('registration form', 'Error occurred while retrieving stock data', level=logging.CRITICAL)
         # return error message to user
         return "Error occurred while retrieving stock data.", 500
 
@@ -85,7 +83,7 @@ def register():
         data.update({'is_active': 1})
         # Save registration form in MonogoDB
         users.insert_one(data)
-        write_to_log('registration form', f'{data["email_address"]} registered for alerts for{data["stock_ticker"]}')
+        write_to_log('registration form', f'{data["email_address"]} registered for alerts for {data["stock_ticker"]}')
         # Redirect to home page
         return redirect(url_for('index'))
     # pass the formatted ticker data to the template

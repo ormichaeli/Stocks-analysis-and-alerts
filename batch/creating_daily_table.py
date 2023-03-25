@@ -1,10 +1,8 @@
 import mysql.connector
 import json
 
-dir = '/tmp/pycharm_project_488'
-
 # Get configuration data
-with open(f'{dir}/config.json') as f:
+with open('/tmp/pycharm_project_301/config.json') as f:
     config = json.load(f)
 
 # Connect to MySQL database

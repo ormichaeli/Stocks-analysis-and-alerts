@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from time import sleep
 
 
-with open('/tmp/pycharm_project_681/config.json') as f:
+with open('/tmp/pycharm_project_301/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 
@@ -19,7 +19,7 @@ producer = KafkaProducer(
 	compression_type=None,
 	retries=3,
 	reconnect_backoff_ms=50,
-	#here we pass over the dict to kafka as json!
+	# here we pass over the dict to kafka as json!
 	value_serializer=lambda v: json.dumps(dict_current_price).encode('utf-8'))
 
 client = MongoClient('mongodb://localhost:27017')
