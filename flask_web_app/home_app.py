@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from logs.logging_config import write_to_log
 
 # Get configuration data
-with open('/tmp/pycharm_project_301/config.json') as f:
+with open('/tmp/pycharm_project_355/config.json') as f:
     config = json.load(f)
 
 # Connect to MongoDB database

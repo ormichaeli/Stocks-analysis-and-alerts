@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
 # Set project directory path
-project_dir = '/tmp/pycharm_project_301'
+project_dir = '/tmp/pycharm_project_355'
 
 # Add the project directory to system path so modules can be imported
 sys.path.insert(0, project_dir)
@@ -30,7 +30,7 @@ dag = DAG(
     dag_id='loading_dag',
     default_args=default_args,
     description='Loads daily data into MySQL database',
-    schedule_interval='0 22 * * 1-5',  # Run on weekdays at 22:00
+    schedule_interval='45 20 * * 1-5',  # Run on weekdays at 23:45 Israel time
 )
 
 # Define the task to load daily data

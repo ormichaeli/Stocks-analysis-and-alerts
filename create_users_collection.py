@@ -9,19 +9,19 @@ mongo_db = client['stocks_db']
 #create 'static_data' collection
 mongo_collection = mongo_db['users']
 
-users_data = [{'first_name': 'miryam',
-              'last_name': 'barHen',
+users_data = [{'first_name': 'Hanan',
+              'last_name': 'Bas',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
                'price': 165,
               'news': 'on',
               'is_active': 1},
 
-              {'first_name': 'or',
-              'last_name': 'michaeli',
+              {'first_name': 'Efi',
+              'last_name': 'Mor',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
-               'price': 150,
+               'price': 165,
                'is_active': 1},
 
              {'first_name': 'noam',
@@ -49,7 +49,7 @@ users_data = [{'first_name': 'miryam',
               'last_name': 'galam',
               'email_address': 'ormichaeli207@gmail.com',
               'stock_ticker': 'AAPL',
-               'price': 155,
+               'price': 165,
                'is_active': 0}
             ]
 

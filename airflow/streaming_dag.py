@@ -5,7 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
 
 # Set project directory path
-project_dir = '/tmp/pycharm_project_301'
+project_dir = '/tmp/pycharm_project_355'
 # Add the project directory to system path so modules can be imported
 sys.path.insert(0, project_dir)
 
@@ -33,8 +33,8 @@ dag = DAG(
     start_date= datetime(2023, 3, 23),
     # New York stock exchange works at 9:30-16:00,
     # in israel time - 16:30-23,
-    # airflow works with utc --> we need to schedule the process to 14:30 (two hours back)
-    schedule_interval='28 14 * * 1-5',  # At 14:28 PM, Monday through Friday
+    # airflow works with utc --> we need to schedule the process to 13:30 (three hours back)
+    schedule_interval='28 13 * * 1-5',  # At 13:28 PM, Monday through Friday
     tags=['stocks_analysis_and_alerts_final_project'],
     description= 'Get real-time stocks prices and sending alerts',
     max_active_runs = 1,

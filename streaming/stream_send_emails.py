@@ -17,6 +17,7 @@ consumer = KafkaConsumer(topic4,bootstrap_servers=bootstrapServers)
 
 for message in consumer:
     request = json.loads(message.value)
+
     if request:
         request_id = request['_id']
         stock_ticker = request['stock_ticker']

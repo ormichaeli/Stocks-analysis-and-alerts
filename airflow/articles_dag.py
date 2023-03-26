@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
 # Set project directory path
-project_dir = '/tmp/pycharm_project_301'
+project_dir = '/tmp/pycharm_project_355'
 # Add the project directory to system path so modules can be imported
 sys.path.insert(0, project_dir)
 
@@ -28,8 +28,8 @@ default_args = {
 dag = DAG(
     dag_id='articles_dag',
     default_args=default_args,
-    description='Get and send articles every day at 20:00',
-    schedule_interval='0 20 * * *',
+    description='Get and send articles every day at 22:00 (Israel time)',
+    schedule_interval='0 19 * * *',
 )
 
 # Define the task to get articles

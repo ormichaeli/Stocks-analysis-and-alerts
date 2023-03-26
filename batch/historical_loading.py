@@ -4,7 +4,7 @@ from pymongo import MongoClient
 import batch.get_daily_data as data
 
 # Get configuration data
-with open('/tmp/pycharm_project_301/config.json') as f:
+with open('/tmp/pycharm_project_355/config.json') as f:
     config = json.load(f)
     polygon_key = config['polygon_key']
 

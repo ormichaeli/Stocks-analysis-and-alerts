@@ -5,7 +5,7 @@ from batch import get_daily_data as data
 from datetime import datetime, timedelta
 
 # Get configuration data
-with open('/tmp/pycharm_project_301/config.json') as f:
+with open('/tmp/pycharm_project_355/config.json') as f:
     config = json.load(f)
     polygon_key = config['polygon_key']
 
