@@ -12,7 +12,7 @@ formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(topic)s - %(messa
 
 # Get today's date in YYYY-MM-DD format and create a log file path
 today = datetime.today().strftime('%Y-%m-%d')
-log_file_name = f'/tmp/pycharm_project_355/logs/{today}.log'
+log_file_name = f'/tmp/pycharm_project_4/logs/{today}.log'
 
 # Set up a file handler and stream handler with the formatter
 file_handler = logging.FileHandler(log_file_name)

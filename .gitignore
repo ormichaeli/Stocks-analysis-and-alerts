@@ -1,3 +1,14 @@
 .DS_Store
 .idea/
 config.json
+batch/grafana_queries
+batch/creating_daily_table.py
+batch/historical_loading.py
+logs/elasticsearch_logs.py
+mongodb
+packages
+streaming/consumer_hdfs.py
+asset_profile.py
+create_users_collection.py
+main.py
+

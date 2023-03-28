@@ -9,15 +9,19 @@ users_col = db["users"]
 articles_col = db["articles"]
 
 # Find all active users who have enabled news notifications
-alerts = users_col.find({'news': 'on', 'is_active': 1},
-                        {'first_name': 1, 'email_address': 1, 'stock_ticker': 1, '_id': 0})
+alerts = [
+    {'$match': {'news': 'on', 'is_active': 1}},  # Filter for active alerts
+    {'$group': {'_id': {'first_name': '$first_name', 'email_address': '$email_address', 'stock_ticker': '$stock_ticker'}}} # Group by email and ticker
+]
+
+alerts = list(users_col.aggregate(alerts))
 
 # Send email to each user with news alerts turned on
 for user in alerts:
     # Extract user data
-    recipient = user['email_address']
-    ticker = user['stock_ticker']
-    name = user['first_name'][0].upper() + user['first_name'][1:]
+    recipient = user['_id']['email_address']
+    ticker = user['_id']['stock_ticker']
+    name = user['_id']['first_name'][0].upper() + user['_id']['first_name'][1:]
 
     # Get articles from articles_col for the specified stock ticker and current date
     date = datetime.today().strftime('%Y-%m-%d')

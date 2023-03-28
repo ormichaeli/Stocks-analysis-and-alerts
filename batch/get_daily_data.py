@@ -47,9 +47,9 @@ def load_data(db, cursor, polygon_key, ticker_names, _from, to):
         cursor.execute("SELECT id FROM daily_stocks WHERE ticker = %s AND business_day = %s", (ticker, date))
         result = cursor.fetchone()
         if result:
-            # Log error if the data already exists
+            # Log warning if the data already exists
             write_to_log('daily stocks data', f'Data for {ticker} on {date} already exists in the table',
-                         level=logging.ERROR)
+                         level=logging.WARNING)
         else:
             # Insert the new data into the table
             sql = "INSERT INTO daily_stocks (ticker, volume, volume_weighted, open_price, close_price, highest_price, lowest_price, business_day, transactions_number) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"

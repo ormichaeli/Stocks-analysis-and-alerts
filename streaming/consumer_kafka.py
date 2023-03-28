@@ -63,6 +63,7 @@ df_relevant_users_for_the_stock = df_all_users.join(df_realtime_prices, df_realt
 df_users_to_send_emails = df_relevant_users_for_the_stock.filter(df_relevant_users_for_the_stock['is_active'] == 1) \
                             .filter(df_realtime_prices['current_price'] <= (df_relevant_users_for_the_stock['price']).cast(FloatType()))
 
+
 # sending to kafka as json string
 stream_to_kafka = df_users_to_send_emails \
     .selectExpr("CAST(_id AS STRING) AS key", "to_json(struct(*)) AS value") \

@@ -5,7 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
 
 # Set project directory path
-project_dir = '/tmp/pycharm_project_355'
+project_dir = '/tmp/pycharm_project_731'
 # Add the project directory to system path so modules can be imported
 sys.path.insert(0, project_dir)
 

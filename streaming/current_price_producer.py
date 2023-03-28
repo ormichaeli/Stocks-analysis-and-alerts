@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from time import sleep
 
 
-with open('/tmp/pycharm_project_54/config.json') as f:
+with open('/tmp/pycharm_project_776/config.json') as f:
     config = json.load(f)
     rapidApi_key = config['rapidApi_key']
 
