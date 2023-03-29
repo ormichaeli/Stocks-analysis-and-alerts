@@ -8,7 +8,7 @@
 }
 
 body {
-  background: #336599FF;
+  background: #4087BC;
   padding: 0 10px;
 }
 
@@ -34,7 +34,7 @@ body {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #336599FF;
+  color: #4087BC;
   text-transform: uppercase;
   text-align: center;
 }
@@ -107,7 +107,7 @@ body {
 .wrapper .form .inputfield .input:focus,
 .wrapper .form .inputfield .textarea:focus,
 .wrapper .form .inputfield .custom_select select:focus {
-  border: 1px solid #336599FF;
+  border: 1px solid #4087BC;
 }
 
 .wrapper .form .inputfield p {
@@ -133,7 +133,7 @@ body {
 .wrapper .form .inputfield .check .checkmark {
   width: 15px;
   height: 15px;
-  border: 1px solid #336599FF;
+  border: 1px solid #4087BC;
   display: block;
   position: relative;
 }
@@ -152,7 +152,7 @@ body {
 }
 
 .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark {
-  background: #336599FF;
+  background: #4087BC;
 }
 
 .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before {
@@ -164,7 +164,7 @@ body {
   padding: 8px 10px;
   font-size: 15px;
   border: 0px;
-  background: #336599FF;
+  background: #4087BC;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
@@ -172,7 +172,7 @@ body {
 }
 
 .wrapper .form .inputfield .btn:hover {
-  background: #336599FF;
+  background: #4087BC;
 }
 
 .wrapper .form .inputfield:last-child {

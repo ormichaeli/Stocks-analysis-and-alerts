@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 
 # Set project directory path
-project_dir = '/tmp/pycharm_project_355'
+project_dir = '/tmp/pycharm_project_731'
 # Add the project directory to system path so modules can be imported
 sys.path.insert(0, project_dir)
 
@@ -21,14 +21,14 @@ def run_python_script(script_path):
 default_args = {
     'owner': 'Airflow',
     'depends_on_past': False,
-    'start_date': datetime(2023, 3, 5, 22, 0)
+    'start_date': datetime(2023, 3, 28)
 }
 
 # Define the DAG
 dag = DAG(
     dag_id='articles_dag',
     default_args=default_args,
-    description='Get and send articles every day at 22:00 (Israel time)',
+    description='Get and send articles every day',  # Run every day at 19:00 utc (22:00 israel time)
     schedule_interval='0 19 * * *',
 )
 

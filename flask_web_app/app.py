@@ -1,12 +1,11 @@
-import logging
-import json, os
+import logging, json, os
 import mysql.connector
 from pymongo import MongoClient
 from flask import Flask, render_template, request, flash, redirect, url_for
 from logs.logging_config import write_to_log
 
 # Get configuration data
-with open('/tmp/pycharm_project_355/config.json') as f:
+with open('/tmp/pycharm_project_731/config.json') as f:
     config = json.load(f)
 
 # Connect to MongoDB database
