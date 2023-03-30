@@ -58,10 +58,10 @@ kafka_task = PythonOperator(
 )
 
 # Define the task to run hdfs
-hdfs_task = PythonOperator(
-    task_id='run_hdfs',
+s3_task = PythonOperator(
+    task_id='run_s3',
     python_callable=run_python_script,
-    op_kwargs={'script_path': f'{project_dir}/streaming/consumer_hdfs.py'},
+    op_kwargs={'script_path': f'{project_dir}/streaming/consumer_s3.py'},
     dag=dag
 )
 
@@ -98,7 +98,7 @@ dummy_task = DummyOperator(task_id='dummy_task', dag=dag)
 
 dummy_task >> emails_task
 dummy_task >> kafka_task
-dummy_task >> hdfs_task
+dummy_task >> s3_task
 dummy_task >> mongo_task
 dummy_task >> producer_task
 dummy_task >> stop_operator
