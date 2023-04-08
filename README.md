@@ -1,5 +1,5 @@
 # Stocks-analysis-and-alerts
-### Excelling graduation project in Data Engineering course at Naya College.
+### Excelling graduation project in Data Engineering course at Naya College
 #### OVERVIEW
 The stock market is a complex and dynamic environment where prices can change rapidly and unpredictably. 
 Investors, traders and analysts need to keep track of these changes in real-time to make informed decisions and take advantage of market opportunities.
