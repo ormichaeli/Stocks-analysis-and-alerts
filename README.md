@@ -4,7 +4,7 @@
 The stock market is a complex and dynamic environment where prices can change rapidly and unpredictably. 
 Investors, traders and analysts need to keep track of these changes in real-time to make informed decisions and take advantage of market opportunities.
 However, it can be challenging to monitor stock data manually, especially for those who are new to the market.
-To address this need, we have developed a program that provides alerts and analysis on stock data 
+To address this need, we have developed a program that provides alerts and analysis on stock data.
 The program uses historical and real-time stock data from reliable sources to provide insights into market trends, volatility, and performance.
 
 #### BUSINESS GOALS
