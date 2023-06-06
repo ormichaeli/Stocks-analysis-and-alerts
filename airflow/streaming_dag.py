@@ -13,16 +13,8 @@ sys.path.insert(0, project_dir)
 # Function to run a Python script using subprocess module
 def run_python_script(script_path):
     os.environ['PYTHONPATH'] = f'{project_dir}:{os.environ.get("PYTHONPATH", "")}'
-    output = subprocess.check_output(['python', script_path])
-    print(output)
+    subprocess.run(['python', script_path])
 
-
-# Default DAG arguments
-default_args = {
-    'owner': 'Airflow',
-    'depends_on_past': False,
-    'start_date': datetime(2023, 3, 23)
-}
 
 # Define the DAG
 dag = DAG(
