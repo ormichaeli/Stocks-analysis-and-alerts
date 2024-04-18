@@ -34,4 +34,4 @@ The program uses historical and real-time stock data from reliable sources to pr
 In Addition, we used Airflow to schedule the three first main processes of the project.
 
 ### Project Architecture
-[26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf](https://github.com/ormichaeli/Stocks-analysis-and-alerts/files/15028907/26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf)
+![alt text][26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf](https://github.com/ormichaeli/Stocks-analysis-and-alerts/files/15028907/26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf)
