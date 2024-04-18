@@ -32,3 +32,6 @@ The program uses historical and real-time stock data from reliable sources to pr
 5. Flask web app: Simple and friendly user interface that displays real-time stock prices and percentage change from the last trading day’s closing price. Additionally, allows users to register for stocks prices alerts and receive articles about specific stocks
 
 In Addition, we used Airflow to schedule the three first main processes of the project.
+
+### Project Architecture
+[26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf](https://github.com/ormichaeli/Stocks-analysis-and-alerts/files/15028907/26809323-c285-4cb9-bc61-12e95d7d1b9d_20240120_1504.pdf)
