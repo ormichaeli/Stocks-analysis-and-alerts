@@ -13,6 +13,9 @@ The program uses historical and real-time stock data from reliable sources to pr
 * Help users understand market trends, volatility, and performance by generating charts and graphs that show trends and patterns in stock prices, volume, and other key indicators.
 * Provide a customizable and user-friendly program that meets the specific needs of its users.
 
+### Project Architecture
+![Final project architecture](https://github.com/ormichaeli/Stocks-analysis-and-alerts/assets/101927358/81347835-c6a1-4552-b01f-6ce6d150b8a9)
+
 #### TECH STACK 
 * Kafka
 * Spark Structured Streaming 
@@ -32,6 +35,3 @@ The program uses historical and real-time stock data from reliable sources to pr
 5. Flask web app: Simple and friendly user interface that displays real-time stock prices and percentage change from the last trading day’s closing price. Additionally, allows users to register for stocks prices alerts and receive articles about specific stocks
 
 In Addition, we used Airflow to schedule the three first main processes of the project.
-
-### Project Architecture
-![Final project architecture](https://github.com/ormichaeli/Stocks-analysis-and-alerts/assets/101927358/81347835-c6a1-4552-b01f-6ce6d150b8a9)
